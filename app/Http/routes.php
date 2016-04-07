@@ -32,6 +32,7 @@ Route::post('registerp', ['as' => 'registerp', 'uses' => 'UsuarioController@crea
 Route::get('login', ['as' => 'login', function () { return view('login'); }]);
 Route::post('loginp', ['as' => 'loginp', 'uses' => 'Auth\AuthController@store']);
 
+
 Route::get('logout',['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
 
 
