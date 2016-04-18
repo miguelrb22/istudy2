@@ -21,8 +21,8 @@
             </div>
             <div class="widget-text-box ">
                 <div class="text-right">
-                    <a href="{{ route('sala',[1])}}" class="btn btn-xs btn-danger"><i class="fa fa-thumbs-up"></i> Abandonar </a>
-                    <a class="btn  btn-xs btn-primary"><i class="fa fa-heart"></i> Acceder </a>
+                    <a class="btn btn-xs btn-danger"><i class="fa fa-thumbs-up"></i> Abandonar </a>
+                    <a  href="{{ route('sala',[1])}}" class="btn  btn-xs btn-primary"><i class="fa fa-heart"></i> Acceder </a>
                 </div>
             </div>
         </div>

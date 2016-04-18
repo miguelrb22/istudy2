@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\model\User;
 use Auth;
 
+use Psy\Util\Json;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -64,13 +65,13 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
+        Auth::logout();
 
         if(Auth::attempt(['email'=>$request['email'],'password' => $request['password']])){
-            return redirect('/');
-            dd("hola");
+            return "true";
         }
 
-        return Redirect::to('login?e=1');
+        return "false";
     }
 
     public function logout(){

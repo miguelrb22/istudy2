@@ -6,9 +6,11 @@ Use Illuminate\Support\Facades\Route;
  * Indice principal
  */
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () { return view('master'); });
+    Route::get('/', ["as" => "home", function () {
+        return view('master');
+    }]);
 
     /**
      * Rutas para las salas
@@ -23,16 +25,24 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
-
 //Register
 
-Route::get('register', ['as' => 'register', function () { return view('register'); }]);
+Route::get('register', ['as' => 'register', function () {
+    return view('register');
+}]);
 Route::post('registerp', ['as' => 'registerp', 'uses' => 'UsuarioController@create']);
 
-Route::get('login', ['as' => 'login', function () { return view('login'); }]);
+Route::get('login', ['as' => 'login', function () {
+    return view('login');
+}]);
 Route::post('loginp', ['as' => 'loginp', 'uses' => 'Auth\AuthController@store']);
 
 
-Route::get('logout',['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
+Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
+
+//confirmar registro
+
+Route::get('confirmar-registro/{user}/{token}', ['as' => 'confirmar-registro', 'uses' => 'UsuarioController@confirm']);
+
 
 

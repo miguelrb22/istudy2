@@ -1,4 +1,8 @@
 
+<?php
+
+        use Illuminate\Support\Facades\Input;
+?>
 <!DOCTYPE html>
 <html>
 
@@ -39,16 +43,17 @@
         </div>
         <div class="col-md-6">
             <div class="ibox-content">
-                <form class="m-t" role="form" method="POST" action="{{URL::route('loginp')}}">
+                <form class="m-t" role="form" id="login">
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <div class="form-group">
+                    <div class="form-group"  id="email">
                         <input type="email" class="form-control" placeholder="Usuario" required="" name="email">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="password">
 
-                        <input type="password" class="form-control" placeholder="Contraseña" required="" name="password">
+                        <input type="password" class="form-control" placeholder="Contraseña" required="" name="password" >
+                        <span class="help-block m-b-none " style="color: red; display: none;" id="error-msg">Email o contraseña incorrectos</span>
                     </div>
                     <button type="submit" class="btn btn-primary block full-width m-b">Iniciar sesión</button>
 
@@ -70,6 +75,48 @@
     <hr/>
 </div>
 
+<script src="{{ URL::asset('front/js/jquery-2.1.1.js') }}"></script>
+
+<script type="text/javascript">
+
+    $( document ).ready(function() {
+
+
+        $("#login").submit(function(e){
+
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('loginp')}}",
+                data: $("#login").serialize(),
+                success: function (data) {
+
+                    if(data == "true"){
+
+                        window.location.replace("{{URL::route('home')}}");
+
+
+                    }else{
+
+                        $("#password").addClass("has-error");
+                        $("#email").addClass("has-error");
+                        $("#error-msg").css("display","block");
+                    }
+                }
+            });
+        });
+
+        $("#email").on( "click", "input", function() {
+
+            $("#password").removeClass("has-error");
+            $("#email").removeClass("has-error");
+            $("#error-msg").css("display","none");
+        });
+
+    });
+
+</script>
 </body>
 
 </html>
