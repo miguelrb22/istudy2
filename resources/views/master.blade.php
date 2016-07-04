@@ -5,12 +5,13 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INSPINIA | Empty Page</title>
+    <title>Istudy</title>
 
     <link href="{{ URL::asset('front/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('front/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('front/css/animate.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('front/css/style.css')}}" rel="stylesheet">
+    @yield("css")
 
 </head>
 
@@ -26,12 +27,12 @@
                             <img alt="image" class="img-rounded" src="{{ URL::asset('front/img/profile_small.jpg')}}"/>
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams <b
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ \Illuminate\Support\Facades\Auth::user()->nombre }} <b
                                                 class="caret"></b> </strong>
                              </span>  </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="profile.html">Perfil</a></li>
+                            <li><a href="contacts.html">Contactos</a></li>
                             <li><a href="mailbox.html">Mailbox</a></li>
                             <li class="divider"></li>
                             <li><a href="{{URL::route('logout')}}">Cerrar sesion</a></li>
@@ -144,6 +145,8 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ URL::asset('front/js/inspinia.js')}}"></script>
 <script src="{{ URL::asset('front/js/plugins/pace/pace.min.js')}}"></script>
+
+@yield("jquery")
 
 
 </body>

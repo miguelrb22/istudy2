@@ -30,7 +30,8 @@ class UsuarioController extends Controller
 
             if (strcasecmp($emailsplit[1], "alu.ua.es") != 0) {
 
-                return 3;
+                //return 3;
+                //descomentar para activar el registro solo usuarios de la ua
 
             };
 
@@ -38,6 +39,8 @@ class UsuarioController extends Controller
             $usuario = new PendingUser();
             $usuario->usuario = $request->input("email");
             $usuario->pass = bcrypt($request->input("password"));
+            $usuario->nombre = $request->input("nombre");
+            $usuario->carrera = $request->input("carrera");
             $usuario->token = Uuid::generate(1);
             $usuario->save();
 

@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace App\model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,6 @@ class Sala extends Model {
 
     protected $table = 'sala';
     protected $fillable = ['id', 'nombre', 'descripcion', 'creador', 'asignatura_id', 'pass', 'requisito', 'room_id'];
-
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class, 'creador', 'id');

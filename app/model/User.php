@@ -11,7 +11,7 @@ class User extends Model {
      */
 
     protected $table = 'users';
-    protected $fillable = ['id', 'email', 'password', 'seguidores', 'gente', 'nombre'];
+    protected $fillable = ['id', 'email', 'password', 'seguidores', 'gente', 'nombre','carrera_id'];
 
 
     public function ramas() {

@@ -9,7 +9,7 @@ class PendingUser extends Model {
      */
 
     protected $table = 'pending_user';
-    protected $fillable = ['id', 'usuario', 'pass','confirmed', 'token'];
+    protected $fillable = ['id', 'usuario', 'pass','confirmed', 'token','nombre','carrera'];
 
 
 
