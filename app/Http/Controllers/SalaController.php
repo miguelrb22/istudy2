@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\model\Asignatura;
+use App\model\PerteneceSala;
 use App\model\Room;
 use App\model\Sala;
+use App\model\UsuarioSalaView;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Mockery\CountValidator\Exception;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\File;
 
 class SalaController extends Controller
 {
@@ -21,7 +25,9 @@ class SalaController extends Controller
      */
     public function index()
     {
-        $salas = Sala::where("creador",Auth::User()->id)->get();
+
+
+        $salas = UsuarioSalaView::where("usuario_id",Auth::User()->id)->get();
         $asignaturas = Asignatura::where("carrera_id",Auth::User()->carrera_id)->groupby("nombre")->get();
         return view('salas', compact("asignaturas","salas"));
     }
@@ -57,15 +63,22 @@ class SalaController extends Controller
         $sala->pass = str_random(8).Auth::User()->id;
         $sala->room_id = $room->id;
 
-        $sala->save();
 
         if($privada === "on"){
 
+            $sala->requisito = true;
             echo "El codigo para invitar a otros usuarios es: ". $sala->pass;
         }else{
 
+            $sala->requisito = false;
             echo "Ya puedes avisar a tus amigos :)";
         }
+
+        $sala->save();
+
+        $disk = \Storage::disk('salas');
+        $disk->makeDirectory($sala->id);
+
     }
 
     /**
@@ -76,7 +89,7 @@ class SalaController extends Controller
      */
     public function show($id)
     {
-        return view('sala');
+        return view('sala',compact("id"));
     }
 
     /**
@@ -102,14 +115,71 @@ class SalaController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function leave(Request $request)
     {
-        //
+
+        $sala = Sala::where("creador",Auth::User()->id)->where("id",$request->input("id_sala"))->first();
+
+        if(count($sala) > 0){
+
+            $aux = Sala::find($request->input("id_sala"));
+            $aux->delete();
+            $disk = \Storage::disk('salas');
+            $disk->deleteDirectory($sala->id);
+        }else{
+
+            PerteneceSala::where('usuario_id',Auth::User()->id)->where('sala_id',$request->input("id_sala"))->delete();
+
+        }
     }
+
+
+    public function join(Request $request){
+
+        $sala = Sala::where("pass",$request->input("codigo"))->first();
+
+        if(count($sala) > 0){
+
+            if(PerteneceSala::where("usuario_id",Auth::User()->id)->where("sala_id",$sala->id)->get()->count() == 0) {
+                $pertenece = new PerteneceSala();
+                $pertenece->usuario_id = Auth::User()->id;
+                $pertenece->sala_id = $sala->id;
+                $pertenece->save();
+            }else{
+                throw new Exception("Error");
+            }
+        }else{
+
+            throw new Exception("Error");
+        }
+
+    }
+
+
+    public function NewPost(Request $request){
+
+
+
+        //DISCO DONDE SE GUARDARA LA IMAGEN
+        $disk = \Storage::disk('salas');
+
+
+        //ARCHIVO REQUEST
+        $file = $request->file('adjunto');
+
+        //EXTENSION DEL ARCHIVO
+        $extension = $file->getClientOriginalExtension();
+
+        //NUEVO NOMBRE
+        $nuevo_nombre = str_random(30).Auth::User()->id;
+
+        //MOVER EL ARCHIVO
+        $disk->put($request->input("sala")."/".$nuevo_nombre.'.'.$extension,File::get($file));
+
+
+    }
+
+
+
 }
