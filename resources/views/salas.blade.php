@@ -29,7 +29,7 @@
     @foreach($salas as $sala)
 
         @if($i==1 || $i%4==0) <div class="row"> @endif
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="widget-head-color-box  blue-bg navy-bg p-lg text-center">
                         <div class="m-b-md">
                             <h2 class="font-bold no-margins">

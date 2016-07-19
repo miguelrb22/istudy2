@@ -34,11 +34,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('get-in', ['as' => 'get-in', 'uses' => 'SalaController@join']);
 
 
+    //render files
+    Route::post('renderfiles', ['as' => 'renderfiles', 'uses' => 'SalaController@renderfile']);
+
+    //Send chat message
+    Route::post('sendchat', ['as' => 'sendchat', 'uses' => 'SalaController@sendChatMessage']);
+
+
+
     /**
      * Rutas para una sala
      */
 
+    //crea un nuevo post
     Route::post('new-post', ['as' => 'new-post', 'uses' => 'SalaController@NewPost']);
+
+
+    //descargar archivo
+    Route::get('get-file-{id}', ['as' => 'get-file', 'uses' => 'SalaController@getfile']);
 
 });
 

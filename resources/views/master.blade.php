@@ -136,6 +136,17 @@
     </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyD_6MMqLXlNTaNqquSnXGu-DzGWu0jSQnw",
+        authDomain: "istudy-3f8dc.firebaseapp.com",
+        databaseURL: "https://istudy-3f8dc.firebaseio.com",
+        storageBucket: ""
+    };
+    firebase.initializeApp(config);
+</script>
 <!-- Mainly scripts -->
 <script src="{{ URL::asset('front/js/jquery-2.1.1.js') }}"></script>
 <script src="{{ URL::asset('front/js/bootstrap.min.js') }}"></script>
