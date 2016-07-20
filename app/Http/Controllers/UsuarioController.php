@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PendingUser;
+use App\model\PendingUser;
 use Illuminate\Database\QueryException;
 use App\model\User;
 
