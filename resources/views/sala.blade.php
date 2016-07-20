@@ -641,9 +641,9 @@
         function sendMessageUI(id,mensaje, fecha, nombre, img){
 
             if(id == "{{Auth::User()->id}}")
-                $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ $storage}}'+img+'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+                $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/'+ img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
             else
-                $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="{{ $storage}}'+img+'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+                $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/' + img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
 
             $container = $('.chat-discussion');
             $container[0].scrollTop = $container[0].scrollHeight;
