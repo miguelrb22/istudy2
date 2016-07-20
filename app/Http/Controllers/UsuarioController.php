@@ -86,4 +86,11 @@ class UsuarioController extends Controller
             return view('confirmation')->with("msg","fail");
         }
     }
+
+    public function ShowModify(){
+
+
+        return view('profile');
+
+    }
 }

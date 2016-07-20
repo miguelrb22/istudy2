@@ -30,7 +30,6 @@ class SalaController extends Controller
     public function index()
     {
 
-
         $salas = UsuarioSalaView::where("usuario_id",Auth::User()->id)->get();
         $asignaturas = Asignatura::where("carrera_id",Auth::User()->carrera_id)->groupby("nombre")->get();
         return view('salas', compact("asignaturas","salas"));
@@ -100,7 +99,12 @@ class SalaController extends Controller
     public function show($id)
     {
         $archivos = Archivo::where("sala_id",$id)->get();
-        return view('sala',compact("id","archivos"));
+
+
+        $storage = storage_path('app\profiles/');
+        $storage = str_replace('\\','/',$storage);
+
+        return view('sala',compact("id","archivos",'storage'));
     }
 
     /**
@@ -164,7 +168,7 @@ class SalaController extends Controller
             }
         }else{
 
-            throw new Exception("Error");
+            throw new Exception("No hay salas con ese codigo");
         }
 
     }
@@ -237,7 +241,10 @@ class SalaController extends Controller
         $data = array(
 
             "user" => $request->input("user"),
-            "mensaje" => $request->input("msg")
+            "mensaje" => $request->input("msg"),
+            "date" => $request->input("date"),
+            "nombre" => Auth::User()->nombre,
+            "url" => Auth::User()->img_url
         );
         $firebase->push("mensajes/".$request->input("sala"),$data);
     }

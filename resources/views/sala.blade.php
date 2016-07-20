@@ -379,69 +379,6 @@
                                                 <div class="col-md-12">
                                                     <div class="chat-discussion">
 
-                                                        <div class="chat-message left">
-                                                            <img class="message-avatar"
-                                                                 src="{{ URL::asset('front/img/a1.jpg')}}" alt="">
-
-                                                            <div class="message">
-                                                                <a class="message-author" href="#"> Michael Smith </a>
-                                                                <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
-                                            <span class="message-content">
-											Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                            </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="chat-message right">
-                                                            <img class="message-avatar"
-                                                                 src="{{ URL::asset('front/img/a4.jpg')}}" alt="">
-
-                                                            <div class="message">
-                                                                <a class="message-author" href="#"> Karl Jordan </a>
-                                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-											Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover.
-                                            </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="chat-message right">
-                                                            <img class="message-avatar"
-                                                                 src="{{ URL::asset('front/img/a2.jpg')}}" alt="">
-
-                                                            <div class="message">
-                                                                <a class="message-author" href="#"> Michael Smith </a>
-                                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-											There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.
-                                            </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="chat-message left">
-                                                            <img class="message-avatar"
-                                                                 src="{{ URL::asset('front/img/a5.jpg')}}" alt="">
-
-                                                            <div class="message">
-                                                                <a class="message-author" href="#"> Alice Jordan </a>
-                                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-											All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="chat-message right">
-                                                            <img class="message-avatar"
-                                                                 src="{{ URL::asset('front/img/a6.jpg')}}" alt="">
-
-                                                            <div class="message">
-                                                                <a class="message-author" href="#"> Mark Smith </a>
-                                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-											All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
 
                                                 </div>
@@ -548,10 +485,12 @@
     <script type="text/javascript">
 
         var db = firebase.database();
-        db.ref('salas/uno').set({
+        var mensajes = db.ref('mensajes/' + "{{$id}}").limitToLast(5);
 
-            sala: "uno",
-            id: "jaja"
+        mensajes.on('child_added', function(data) {
+            //addCommentElement(postElement, data.key, data.val().text, data.val().author);
+            sendMessageUI(data.val().user, data.val().mensaje, data.val().date, data.val().nombre, data.val().url);
+
 
         });
 
@@ -562,6 +501,7 @@
 
 
     <script type="text/javascript">
+
 
         $("#newpost").submit(function (e) {
 
@@ -639,7 +579,7 @@
 
         /**window.setInterval(function(){
 
-            $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="{{ URL::asset('front/img/a1.jpg')}}" alt=""><div class="message"> <a class="message-author" href="#"> Michael Smith </a> <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span> <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span> </div> </div>');
+            $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="C:\Users/Miguel/Desktop/Proyecto/istudy/storage/app/profiles/1dqwdh2.jpg" alt=""><div class="message"> <a class="message-author" href="#"> Michael Smith </a> <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span> <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span> </div> </div>');
         }, 5000);
 
         window.setInterval(function(){
@@ -659,13 +599,13 @@
 
                     mensaje = $(this).val();
                     $(this).val("");
-                    sendMessageUI("Alberto");
+                    //sendMessageUI("Alberto",mensaje);
 
 
                     $.ajax({
                         type: "POST",
                         url: "{{URL::route('sendchat')}}",
-                        data: {sala: "{{$id}}", user: "{{Auth::User()->id}}", msg: mensaje },
+                        data: {sala: "{{$id}}", user: "{{Auth::User()->id}}", msg: mensaje, date: getNow2() },
                         success: function (data) {
 
                         },
@@ -698,9 +638,13 @@
 
 
         //Escribe un mensaje en el chat
-        function sendMessageUI(name){
+        function sendMessageUI(id,mensaje, fecha, nombre, img){
 
-            $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ URL::asset('front/img/a5.jpg')}}" alt=""><div class="message"> <a class="message-author" href="#"> ' + name + ' </a> <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span> <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span> </div> </div>');
+            if(id == "{{Auth::User()->id}}")
+                $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ $storage}}'+img+'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+            else
+                $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="{{ $storage}}'+img+'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+
             $container = $('.chat-discussion');
             $container[0].scrollTop = $container[0].scrollHeight;
         }
@@ -713,6 +657,33 @@
             this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
             e.preventDefault();
         });
+
+        function getNow2(){
+
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            var hour = today.getHours();
+            var minutes = today.getMinutes();
+
+            if(minutes<10) {
+                minutes='0'+minutes
+            }
+
+            if(dd<10) {
+                dd='0'+dd
+            }
+
+            if(mm<10) {
+                mm='0'+mm
+            }
+
+            today = mm+'/'+dd+'/'+yyyy+' '+hour+':'+minutes;
+            return today;
+        }
 
         $container = $('.chat-discussion');
         $container[0].scrollTop = $container[0].scrollHeight;

@@ -41,7 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('sendchat', ['as' => 'sendchat', 'uses' => 'SalaController@sendChatMessage']);
 
 
-
     /**
      * Rutas para una sala
      */
@@ -52,6 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     //descargar archivo
     Route::get('get-file-{id}', ['as' => 'get-file', 'uses' => 'SalaController@getfile']);
+
+    /**
+     * Rutas usuario
+     */
+
+
+    Route::get('modificar-perfil', ['as' => 'modificar-perfil', 'uses' => 'UsuarioController@ShowModify']);
 
 });
 

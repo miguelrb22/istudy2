@@ -31,7 +31,7 @@
                                                 class="caret"></b> </strong>
                              </span>  </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Perfil</a></li>
+                            <li><a href="{{URL::route('modificar-perfil')}}">Perfil</a></li>
                             <li><a href="contacts.html">Contactos</a></li>
                             <li><a href="mailbox.html">Mailbox</a></li>
                             <li class="divider"></li>
