@@ -1,7 +1,7 @@
 <?php
 
 Use Illuminate\Support\Facades\Route;
-Use App\Models\Carrera;
+Use App\model\Carrera;
 
 /**
  * Indice principal
