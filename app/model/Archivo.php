@@ -12,7 +12,7 @@ class Archivo extends Model {
      */
 
     protected $table = 'archivo';
-    protected $fillable = ['id', 'url', 'descripcion', 'sala_id', 'usuario_id','tipo'];
+    protected $fillable = ['id', 'url', 'descripcion', 'sala_id', 'usuario_id','tipo','created_at'];
 
 
 

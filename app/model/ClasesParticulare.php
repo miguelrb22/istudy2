@@ -9,16 +9,10 @@ class ClasesParticulare extends Model {
      */
 
     protected $table = 'clases_particulares';
-    protected $fillable = ['id', 'nombre', 'descripcion', 'usuario_id', 'rama_id'];
+    protected $fillable = ['id', 'nombre', 'descripcion', 'usuario_id', 'rama_id','precio'];
 
 
-    public function user() {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_id', 'id');
-    }
 
-    public function rama() {
-        return $this->belongsTo(\App\Models\Rama::class, 'rama_id', 'id');
-    }
 
 
 }

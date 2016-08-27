@@ -9,16 +9,7 @@ class MensajePrivado extends Model {
      */
 
     protected $table = 'mensaje_privado';
-    protected $fillable = ['id', 'emisor', 'destinatario', 'cuerpo'];
-
-
-    public function user() {
-        return $this->belongsTo(\App\Models\User::class, 'emisor', 'id');
-    }
-
-    public function user() {
-        return $this->belongsTo(\App\Models\User::class, 'destinatario', 'id');
-    }
+    protected $fillable = ['id', 'emisor', 'destinatario', 'cuerpo','subject', 'tipo'];
 
 
 }

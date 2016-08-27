@@ -1,5 +1,5 @@
 @extends('master')
-@section('maintitle') Sala @endsection
+@section('maintitle') Sala <br> <span style="font-size: 12px !important;">Pass: <span style="font-weight: bold"> {{ $codigo }} </span> (solo tu ves esta información)</span> @endsection
 @section("css")
 
     <link href="{{ URL::asset('front/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
@@ -30,7 +30,7 @@
                                     <div class="social-comment">
                                         <a href="" class="pull-left">
                                             <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
+                                                 src="{{ URL::asset('images/profiles')."/".\Illuminate\Support\Facades\Auth::user()->img_url}}">
                                         </a>
 
                                         <div class="media-body">
@@ -68,296 +68,13 @@
                             </div>
 
 
-                            <div class="social-feed-box">
-
-                                <div class="pull-right social-action dropdown">
-                                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu m-t-xs">
-                                        <li><a href="#">Config</a></li>
-                                    </ul>
-                                </div>
-                                <div class="social-avatar">
-                                    <a href="" class="pull-left">
-                                        <img alt="image" src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                    </a>
-
-                                    <div class="media-body">
-                                        <a href="#">
-                                            Andrew Williams
-                                        </a>
-                                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                                    </div>
-                                </div>
-                                <div class="social-body">
-                                    <p>
-                                        Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                                        their
-                                        default model text, and a search for 'lorem ipsum' will uncover many web sites
-                                        still
-                                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                                        default model text.
-                                    </p>
-
-                                    <div class="btn-group">
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                                    </div>
-                                </div>
-                                <div class="social-footer">
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Internet tend to repeat predefined chunks as necessary, making this the
-                                            first true generator on the Internet. It uses a dictionary of over 200 Latin
-                                            words.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a>
-                                            -
-                                            <small class="text-muted">12.06.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Making this the first true generator on the Internet. It uses a dictionary
-                                            of.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a>
-                                            -
-                                            <small class="text-muted">10.07.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <textarea class="form-control" placeholder="Write comment..."></textarea>
-                                        </div>
-                                    </div>
-
-                                </div>
-
+                            <div class="master-boxes">
+                                <div class="social-feeds-boxes"></div>
                             </div>
 
-                            <div class="social-feed-box">
-
-                                <div class="pull-right social-action dropdown">
-                                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu m-t-xs">
-                                        <li><a href="#">Config</a></li>
-                                    </ul>
-                                </div>
-                                <div class="social-avatar">
-                                    <a href="" class="pull-left">
-                                        <img alt="image" src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                    </a>
-
-                                    <div class="media-body">
-                                        <a href="#">
-                                            Andrew Williams
-                                        </a>
-                                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                                    </div>
-                                </div>
-                                <div class="social-body">
-                                    <p>
-                                        Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                                        their
-                                        default model text, and a search for 'lorem ipsum' will uncover many web sites
-                                        still
-                                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                                        default model text.
-                                    </p>
-
-                                    <p>
-                                        Lorem Ipsum as their
-                                        default model text, and a search for 'lorem ipsum' will uncover many web sites
-                                        still
-                                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                                        default model text.
-                                    </p>
-                                    <img src="http://www.tugestor.es/demo/dist/img/default_user.png"
-                                         class="img-responsive">
-
-                                    <div class="btn-group">
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                                    </div>
-                                </div>
-                                <div class="social-footer">
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Internet tend to repeat predefined chunks as necessary, making this the
-                                            first true generator on the Internet. It uses a dictionary of over 200 Latin
-                                            words.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a>
-                                            -
-                                            <small class="text-muted">12.06.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Making this the first true generator on the Internet. It uses a dictionary
-                                            of.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a>
-                                            -
-                                            <small class="text-muted">10.07.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Making this the first true generator on the Internet. It uses a dictionary
-                                            of.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a>
-                                            -
-                                            <small class="text-muted">10.07.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image"
-                                                 src="http://www.tugestor.es/demo/dist/img/default_user.png">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <textarea class="form-control" placeholder="Write comment..."
-                                                      style="margin: 0px -0.5px 0px 0px; height: 69px; width: 451px;"></textarea>
-                                        </div>
-                                    </div>
+                            <div class="show-more" style="display: none"> <button  class="btn btn-info" onclick="moreposts()">Ver más</button></div>
 
 
-                                </div>
-
-                            </div>
-
-                            <div class="social-feed-box">
-
-                                <div class="pull-right social-action dropdown">
-                                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu m-t-xs">
-                                        <li><a href="#">Config</a></li>
-                                    </ul>
-                                </div>
-                                <div class="social-avatar">
-                                    <a href="" class="pull-left">
-                                        <img alt="image" src="img/a4.jpg">
-                                    </a>
-
-                                    <div class="media-body">
-                                        <a href="#">
-                                            Andrew Williams
-                                        </a>
-                                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                                    </div>
-                                </div>
-                                <div class="social-body">
-                                    <p>
-                                        Packages and web page editors now use Lorem Ipsum as their
-                                        default model text. Page editors now use Lorem Ipsum as their
-                                        default model text.
-                                    </p>
-
-                                    <div class="btn-group">
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment
-                                        </button>
-                                        <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                                    </div>
-                                </div>
-                                <div class="social-footer">
-
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image" src="img/a8.jpg">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <a href="#">
-                                                Andrew Williams
-                                            </a>
-                                            Making this the first true generator on the Internet. It uses a dictionary
-                                            of.
-                                            <br>
-                                            <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a>
-                                            -
-                                            <small class="text-muted">10.07.2014</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="social-comment">
-                                        <a href="" class="pull-left">
-                                            <img alt="image" src="img/a3.jpg">
-                                        </a>
-
-                                        <div class="media-body">
-                                            <textarea class="form-control" placeholder="Write comment..."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
                         <div class="col-lg-6">
@@ -379,6 +96,9 @@
                                                 <div class="col-md-12">
                                                     <div class="chat-discussion">
 
+                                                        <center><a class="show-more-chats" style="display: none" onclick="moreChats()">Ver mensajes anteriores</a></center>
+
+                                                        <div class="chat-discussions"></div>
                                                     </div>
 
                                                 </div>
@@ -428,10 +148,7 @@
 
                                                     @endif
 
-                                                    "
-
-                                            >
-
+                                                    ">
 
                                             </i>
                                         </div>
@@ -456,15 +173,30 @@
                             <div class="contact-box">
                                 <div class="col-sm-4">
                                     <div class="text-center">
-                                        <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
+                                        <img alt="image" class="img-circle m-t-xs img-responsive" src="{{ URL::asset('front/img/a1.jpg')}}">
 
-                                        <div class="m-t-xs font-bold">Graphics designer</div>
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
-                                    <h3><strong>John Smith</strong></h3>
+                                    <h3><strong>Juan Carlos</strong></h3>
 
-                                    <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+
+                                    <button class="btn btn-info btn-xs">Ver perfil</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="contact-box">
+                                <div class="col-sm-4">
+                                    <div class="text-center">
+                                        <img alt="image" class="img-circle m-t-xs img-responsive" src="{{ URL::asset('front/img/a5.jpg')}}">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <h3><strong>Maria Elena</strong></h3>
+
 
                                     <button class="btn btn-info btn-xs">Ver perfil</button>
                                 </div>
@@ -484,14 +216,62 @@
 
     <script type="text/javascript">
 
+        var total_posts;
+        var aux_last_post;
+
+        var total_chats;
+        var aux_last_chat;
+
         var db = firebase.database();
-        var mensajes = db.ref('mensajes/' + "{{$id}}").limitToLast(5);
+        var mensajes = db.ref('rooms/' + "{{$room}}").limitToLast(5);
+        var posts = db.ref('publicaciones/' + "{{$room}}").limitToLast(5);
+
+        var mensajesCount = db.ref('rooms/' + "{{$room}}");
+        mensajesCount.once("value", function(snapshot) {
+
+            total_chats = snapshot.numChildren()-5;
+
+            if(total_chats > 0){
+
+                $(".show-more-chats").css("display","block");
+            }
+
+        });
+
+
+        var postsCount = db.ref('publicaciones/' + "{{$room}}");
+        postsCount.once("value", function(snapshot) {
+
+            total_posts = snapshot.numChildren()-5;
+
+            if(total_posts > 0){
+
+                $(".show-more").css("display","block");
+            }
+
+        });
 
         mensajes.on('child_added', function(data) {
+
             //addCommentElement(postElement, data.key, data.val().text, data.val().author);
-            sendMessageUI(data.val().user, data.val().mensaje, data.val().date, data.val().nombre, data.val().url);
+            sendMessageUI(data.val().user, data.val().mensaje, data.val().date, data.val().nombre, data.val().url, data.key);
 
 
+        });
+
+
+        posts.on('child_added', function(data) {
+
+            sendPostUI(data.key, data.val().avatar, data.val().date, data.val().likes, data.val().mensaje, data.val().nombre, data.val().reposts);
+
+
+            var reposts = db.ref('publicaciones/' + "{{$room}}" + "/" + data.key + "/reposts");
+
+            reposts.on('child_added', function(data) {
+
+                addRepost(data.val().parent, data.val().mensaje, data.val().nombre, data.val().date, data.val().img);
+
+            });
         });
 
     </script>
@@ -519,12 +299,7 @@
                 success: function (data) {
 
                     $('#myModal').modal('toggle');
-                    swal({
-                        title: "Gracias!",
-                        text: "Tu aportación ya está disponible para todos los usuarios",
-                        type: "success",
-                        showConfirmButton: true
-                    });
+
 
                     $(".reset").val('');
                     $("#file-description").css("display", "none");
@@ -577,16 +352,6 @@
 
         renderFile("{{$id}}");
 
-        /**window.setInterval(function(){
-
-            $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="C:\Users/Miguel/Desktop/Proyecto/istudy/storage/app/profiles/1dqwdh2.jpg" alt=""><div class="message"> <a class="message-author" href="#"> Michael Smith </a> <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span> <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span> </div> </div>');
-        }, 5000);
-
-        window.setInterval(function(){
-
-            $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ URL::asset('front/img/a5.jpg')}}" alt=""><div class="message"> <a class="message-author" href="#"> Michael Smith </a> <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span> <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span> </div> </div>');
-        }, 7000);
-**/
 
         $('.areamensaje').keyup(function (event) {
 
@@ -617,6 +382,31 @@
             }
         });
 
+        $(document).on("keyup",".repost",function (event) {
+
+
+            if (event.keyCode == 13) {
+                var content = this.value;
+                var caret = getCaret(this);
+                if(event.shiftKey){
+                } else {
+
+                    mensaje = $(this).val();
+                    $(this).val("");
+
+                    if(mensaje.length > 0){
+
+
+                        var ref = "publicaciones/" + "{{$room}}"+ "/" + $(this).data("key")+"/reposts";
+                        db.ref(ref).push({mensaje : mensaje, parent:$(this).data("key"), nombre: "{{\Illuminate\Support\Facades\Auth::user()->nombre}}", date: getNow2(), img: "{{\Illuminate\Support\Facades\Auth::user()->img_url}}"});
+
+                    }
+                    //sendMessageUI("Alberto",mensaje);
+
+                }
+            }
+        });
+
         function getCaret(el) {
             if (el.selectionStart) {
                 return el.selectionStart;
@@ -638,15 +428,85 @@
 
 
         //Escribe un mensaje en el chat
-        function sendMessageUI(id,mensaje, fecha, nombre, img){
+        function sendMessageUI(id,mensaje, fecha, nombre, img, key){
 
             if(id == "{{Auth::User()->id}}")
-                $(".chat-discussion").append('<div class="chat-message right"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/'+ img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+                $(".chat-discussions").append('<div class="chat-message right" data-key="'+ key +'"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/'+ img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
             else
-                $(".chat-discussion").append('<div class="chat-message left"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/' + img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+                $(".chat-discussions").append('<div class="chat-message left" data-key="'+ key +'"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/' + img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
 
             $container = $('.chat-discussion');
             $container[0].scrollTop = $container[0].scrollHeight;
+        }
+
+        function sendPostUI(key, avatar, date, likes, mensaje, nombre, repost) {
+
+            $(".social-feeds-boxes").prepend(' <div class="social-feed-box" data-key="'+ key +'"> <div class="pull-right social-action dropdown"> <button data-toggle="dropdown" class="dropdown-toggle btn-white"> <i class="fa fa-angle-down"></i> </button> <ul class="dropdown-menu m-t-xs"> <li><a href="#">Config</a></li> </ul> </div> <div class="social-avatar"> <div class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')}}'+ '/'+ avatar +'"> </div> <div class="media-body"> <a href="#"> '+ nombre+' </a> <small class="text-muted">'+ date+'</small> </div> </div> <div class="social-body"> <p> ' + mensaje +' </p> <div class="btn-group"> <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this! </button> </div> </div> <div class="social-footer '+ key +'"> <div class="social-comment"> <a href="" class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')."/".\Illuminate\Support\Facades\Auth::user()->img_url}}"> </a> <div class="media-body"> <textarea data-key="'+ key +'" class="form-control repost" placeholder="Write comment..."></textarea> </div> </div> </div> </div> ');
+
+
+        }
+
+        function addRepost(key, mensaje, nombre, date, avatar){
+
+            $("."+key).append('<div class="social-comment"> <a href="" class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')}}'+ '/'+ avatar +'"> </a> <div class="media-body"> <a href="#">' + nombre + '</a> '+ mensaje + '<br><small class="text-muted">'+ date +'</small> </div> </div>')
+
+        }
+
+        function moreposts(){
+
+            var i = 1;
+
+            var a = $(".social-feeds-boxes").children(0).last().data("key");
+            var postsn = db.ref('publicaciones/' + "{{$room}}").orderByKey().limitToLast(6).endAt(a);
+
+            postsn.on('child_added', function(data) {
+
+                if(a != data.key) {
+
+                    if(i==1)
+                    sendPostUIAfter(data.key, data.val().avatar, data.val().date, data.val().likes, data.val().mensaje, data.val().nombre, data.val().reposts);
+                            else
+                        sendPostUIBefore(data.key, data.val().avatar, data.val().date, data.val().likes, data.val().mensaje, data.val().nombre, data.val().reposts);
+
+                    i++;
+                    var reposts = db.ref('publicaciones/' + "{{$room}}" + "/" + data.key + "/reposts");
+
+                    reposts.on('child_added', function (data) {
+
+                        addRepost(data.val().parent, data.val().mensaje, data.val().nombre, data.val().date, data.val().img);
+
+                    });
+
+
+                }
+            });
+
+            total_posts = total_posts-5;
+
+            if(total_posts <= 0){
+
+                $(".show-more").remove();
+            }
+
+        }
+
+        function sendPostUIAfter(key, avatar, date, likes, mensaje, nombre, repost) {
+
+
+            var a = $(' <div class="social-feed-box antes" data-key="'+ key +'"> <div class="pull-right social-action dropdown"> <button data-toggle="dropdown" class="dropdown-toggle btn-white"> <i class="fa fa-angle-down"></i> </button> <ul class="dropdown-menu m-t-xs"> <li><a href="#">Config</a></li> </ul> </div> <div class="social-avatar"> <div class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')}}'+ '/'+ avatar +'"> </div> <div class="media-body"> <a href="#"> '+ nombre+' </a> <small class="text-muted">'+ date+'</small> </div> </div> <div class="social-body"> <p> ' + mensaje +' </p> <div class="btn-group"> <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this! </button> </div> </div> <div class="social-footer '+ key +'"> <div class="social-comment"> <a href="" class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')."/".\Illuminate\Support\Facades\Auth::user()->img_url}}"> </a> <div class="media-body"> <textarea data-key="'+ key +'" class="form-control repost" placeholder="Write comment..."></textarea> </div> </div> </div> </div> ');
+            $(".social-feeds-boxes").children(0).last().after(a);
+            aux_last_post = a;
+
+        }
+
+        function sendPostUIBefore(key, avatar, date, likes, mensaje, nombre, repost) {
+
+
+            var a = $(' <div class="social-feed-box antes" data-key="'+ key +'"> <div class="pull-right social-action dropdown"> <button data-toggle="dropdown" class="dropdown-toggle btn-white"> <i class="fa fa-angle-down"></i> </button> <ul class="dropdown-menu m-t-xs"> <li><a href="#">Config</a></li> </ul> </div> <div class="social-avatar"> <div class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')}}'+ '/'+ avatar +'"> </div> <div class="media-body"> <a href="#"> '+ nombre+' </a> <small class="text-muted">'+ date+'</small> </div> </div> <div class="social-body"> <p> ' + mensaje +' </p> <div class="btn-group"> <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this! </button> </div> </div> <div class="social-footer '+ key +'"> <div class="social-comment"> <a href="" class="pull-left"> <img alt="image" src="{{ URL::asset('images/profiles')."/".\Illuminate\Support\Facades\Auth::user()->img_url}}"> </a> <div class="media-body"> <textarea data-key="'+ key +'" class="form-control repost" placeholder="Write comment..."></textarea> </div> </div> </div> </div> ');
+            aux_last_post.before(a);
+            aux_last_post = a;
+
+
         }
 
 
@@ -687,7 +547,70 @@
 
         $container = $('.chat-discussion');
         $container[0].scrollTop = $container[0].scrollHeight;
-    </script>
 
+
+        function  moreChats(){
+
+
+            var a = $(".chat-discussions").children(0).first().data("key");
+            aux_last_chat = $(".chat-discussions").children(0).first();
+
+            var mensajesn = db.ref('rooms/' + "{{$room}}").orderByKey().limitToLast(11).endAt(a);
+
+            var i = 1;
+            mensajesn.on('child_added', function(data) {
+
+                if(a != data.key) {
+
+                    if(i == 1)
+                    sendMessageUIAfter(data.val().user, data.val().mensaje, data.val().date, data.val().nombre, data.val().url, data.key);
+                    else
+                        sendMessageUIBefore(data.val().user, data.val().mensaje, data.val().date, data.val().nombre, data.val().url, data.key);
+
+
+                    i++;
+                }
+            });
+
+            total_chats = total_chats-10;
+
+            if(total_chats <= 0){
+
+                $(".show-more-chats").remove();
+            }
+        }
+
+        function sendMessageUIAfter(id,mensaje, fecha, nombre, img, key){
+
+            if(id == "{{Auth::User()->id}}")
+                aux_last_chat.before('<div class="chat-message right" data-key="'+ key +'"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/'+ img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+            else
+                aux_last_chat.before('<div class="chat-message left" data-key="'+ key +'"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}'+ '/' + img +'" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> '+ fecha +' </span> <span class="message-content">'+ mensaje +' </span> </div> </div>');
+
+
+            aux_last_chat = $(".chat-discussions").children(0).first();
+
+        }
+
+        function sendMessageUIBefore(id,mensaje, fecha, nombre, img, key){
+
+
+            var a;
+            if(id == "{{Auth::User()->id}}") {
+
+                a = $('<div class="chat-message right" data-key="' + key + '"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}' + '/' + img + '" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> ' + fecha + ' </span> <span class="message-content">' + mensaje + ' </span> </div> </div>');
+                aux_last_chat.after(a);
+            }
+
+            else {
+
+                    a = $('<div class="chat-message left" data-key="' + key + '"> <img class="message-avatar" src="{{ URL::asset('images/profiles')}}' + '/' + img + '" alt=""><div class="message"> <a class="message-author" href="#"> ' + nombre + ' </a> <span class="message-date"> ' + fecha + ' </span> <span class="message-content">' + mensaje + ' </span> </div> </div>');
+                aux_last_chat.after(a);
+
+            }
+            aux_last_chat = a;
+
+        }
+    </script>
 
 @endsection

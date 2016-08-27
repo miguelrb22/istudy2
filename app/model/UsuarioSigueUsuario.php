@@ -12,13 +12,6 @@ class UsuarioSigueUsuario extends Model {
     protected $fillable = ['usuario_id', 'usuario_id2', 'mutuo'];
 
 
-    public function user() {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_id', 'id');
-    }
-
-    public function user() {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_id2', 'id');
-    }
 
 
 }

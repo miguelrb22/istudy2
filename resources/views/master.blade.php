@@ -24,7 +24,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-rounded" src="{{ URL::asset('front/img/profile_small.jpg')}}"/>
+                            <img alt="image" class="img-rounded" src="{{URL::asset('images/profiles').'/'.\Illuminate\Support\Facades\Auth::user()->img_url}}" height="80"/>
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ \Illuminate\Support\Facades\Auth::user()->nombre }} <b
@@ -32,8 +32,8 @@
                              </span>  </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="{{URL::route('modificar-perfil')}}">Perfil</a></li>
-                            <li><a href="contacts.html">Contactos</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li><a href="{{URL::route('contactos')}}">Contactos</a></li>
+                            <li><a href="{{ URL::route('mailbox')}}">Mensajes privados</a></li>
                             <li class="divider"></li>
                             <li><a href="{{URL::route('logout')}}">Cerrar sesion</a></li>
                         </ul>
@@ -44,29 +44,32 @@
                 </li>
 
                 <li>
+                    <a href="{{ URL::route('home')}}"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span></a>
+                </li>
+                <li>
                     <a href="{{ URL::route('salas')}}"><i class="fa fa-leanpub"></i> <span class="nav-label">Salas</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Momentos</span></a>
+                    <a href="{{ URL::route('momentos')}}"><i class="fa fa-users"></i> <span class="nav-label">Momentos</span></a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Clases</span></a>
+                    <a href="{{ URL::route('clases')}}"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Clases</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-soccer-ball-o"></i> <span class="nav-label">Eventos deportivos</span></a>
-                </li>
-
-                <li>
-                    <a href="#"><i class="fa fa-lightbulb-o"></i> <span class="nav-label">Proyectos/ideas</span></a>
+                    <a href="{{ URL::route('deportes')}}"><i class="fa fa-soccer-ball-o"></i> <span class="nav-label">Eventos deportivos</span></a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academias</span></a>
+                    <a href="{{ URL::route('proyectos')}}"><i class="fa fa-lightbulb-o"></i> <span class="nav-label">Proyectos/ideas</span></a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-glass"></i> <span class="nav-label">Ocio</span></a>
+                    <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academias <small style="color: red; font-size: 9px"> Proximamente</small></span></a>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-glass"></i> <span class="nav-label">Ocio <small style="color: red; font-size: 9px"> Proximamente</small></span></a>
                 </li>
 
 
@@ -131,6 +134,8 @@
         <div class="wrapper wrapper-content">
 
             @yield('contenido')
+
+
         </div>
 
     </div>

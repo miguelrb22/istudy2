@@ -61,9 +61,10 @@ return [
 
         'profiles' => [
             'driver' => 'local',
-            'root' => storage_path('app/profiles'),
+            'root' => public_path('images/profiles'),
             'visibility' => 'public',
         ],
+
 
         's3' => [
             'driver' => 's3',

@@ -9,13 +9,10 @@ use App\model\Room;
 use App\model\Sala;
 use App\model\UsuarioSalaView;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Mockery\CountValidator\Exception;
-use Webpatser\Uuid\Uuid;
 use Illuminate\Support\Facades\File;
 
 class SalaController extends Controller
@@ -81,13 +78,6 @@ class SalaController extends Controller
 
         $disk = \Storage::disk('salas');
         $disk->makeDirectory($sala->id);
-
-        $firebase = new \Firebase\FirebaseLib("https://istudy-3f8dc.firebaseio.com/", "mE8deJKGTm59u5mpQF7lnZdO7dL0uCSFGKXkZpaI");
-        $test = array(
-        );
-
-        $firebase->set("salas/".$sala->id, $test);
-
     }
 
     /**
@@ -104,7 +94,11 @@ class SalaController extends Controller
         $storage = storage_path('app\profiles/');
         $storage = str_replace('\\','/',$storage);
 
-        return view('sala',compact("id","archivos",'storage'));
+        $sala= Sala::find($id);
+        $room = $sala->room_id;
+        $codigo = $sala->pass;
+
+        return view('sala',compact("id","archivos",'storage','room','codigo'));
     }
 
     /**
@@ -131,6 +125,10 @@ class SalaController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * Abandonar una sala
+     */
     public function leave(Request $request)
     {
 
@@ -143,7 +141,7 @@ class SalaController extends Controller
             $disk = \Storage::disk('salas');
             $disk->deleteDirectory($sala->id);
             $firebase = new \Firebase\FirebaseLib("https://istudy-3f8dc.firebaseio.com/", "mE8deJKGTm59u5mpQF7lnZdO7dL0uCSFGKXkZpaI");
-            $firebase->delete("salas/".$sala->id);
+            $firebase->delete("rooms/".$sala->room_id);
         }else{
 
             PerteneceSala::where('usuario_id',Auth::User()->id)->where('sala_id',$request->input("id_sala"))->delete();
@@ -152,6 +150,10 @@ class SalaController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * Unirse a una sala
+     */
     public function join(Request $request){
 
         $sala = Sala::where("pass",$request->input("codigo"))->first();
@@ -174,17 +176,19 @@ class SalaController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * Crea un nuevo post dentro de una sala
+     */
     public function NewPost(Request $request){
-
-
 
         //DISCO DONDE SE GUARDARA LA IMAGEN
         $disk = \Storage::disk('salas');
 
-
-
         //ARCHIVO REQUEST
         $file = $request->file('adjunto');
+
+        $archivo = new Archivo();
 
 
         if($file != null) {
@@ -198,7 +202,6 @@ class SalaController extends Controller
             $disk->put($request->input("sala") . "/" . $nuevo_nombre . '.' . $extension, File::get($file));
 
 
-            $archivo = new Archivo();
             $archivo->sala_id = $request->input("sala");
             $archivo->url = $request->input("sala") . "/" . $nuevo_nombre . '.' . $extension;
             $archivo->descripcion = $request->input("file-description");
@@ -207,8 +210,27 @@ class SalaController extends Controller
             $archivo->save();
         }
 
+        $firebase = new \Firebase\FirebaseLib("https://istudy-3f8dc.firebaseio.com/", "mE8deJKGTm59u5mpQF7lnZdO7dL0uCSFGKXkZpaI");
+
+        $data = array(
+            "mensaje" => $request->input("mensaje-nuevo"),
+            "date" => date("d-m-Y H:i:s"),
+            "nombre" => Auth::User()->nombre,
+            "likes" => 0,
+            "avatar" => Auth::User()->img_url
+        );
+
+        $sala = Sala::find($request->input("sala"));
+        $firebase->push("publicaciones/".$sala->room_id,$data);
+
     }
 
+
+    /**
+     * @param $tipo
+     * @return int
+     * Devuelve el tipo de archivo para guardarlo como informacion en la base de datos
+     */
     private function getTipo($tipo){
 
         $tipo = strtolower($tipo);
@@ -219,38 +241,52 @@ class SalaController extends Controller
 
     }
 
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * Descar un archivo guardado
+     */
     public function getfile($id){
+
+        //HABRA QUE COMPROBAR SI EL USUARIO TIENE PERMISO PARA DESCARGAR ESE ARCHIVO
 
 
         $disk = \Storage::disk('salas');
-
         $archivo = Archivo::find($id);
 
-
         return response()->download(storage_path()."/app/salas/".$archivo->url);
-
 
     }
 
 
+    /**
+     * Guarda un mensaje de chat en la base de datos FireBase
+     * @param Request $request
+     */
     public function sendChatMessage(Request $request){
 
 
         $firebase = new \Firebase\FirebaseLib("https://istudy-3f8dc.firebaseio.com/", "mE8deJKGTm59u5mpQF7lnZdO7dL0uCSFGKXkZpaI");
 
         $data = array(
-
             "user" => $request->input("user"),
             "mensaje" => $request->input("msg"),
             "date" => $request->input("date"),
             "nombre" => Auth::User()->nombre,
             "url" => Auth::User()->img_url
         );
-        $firebase->push("mensajes/".$request->input("sala"),$data);
+
+        $sala = Sala::find($request->input("sala"));
+        $firebase->push("rooms/".$sala->room_id,$data);
     }
 
-    public function renderFile(Request $request){
 
+    /**
+     * Funcion que rendecira los archivos de una sala para mostrarlos en la vista
+     * @param Request $request
+     */
+    public function renderFile(Request $request){
 
         $archivos = Archivo::where("sala_id",$request->input("id"))->get();
         $render = View::make('render/files', ['archivos' => $archivos]);

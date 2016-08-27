@@ -10,7 +10,7 @@ Use App\model\Carrera;
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', ["as" => "home", function () {
-        return view('master');
+        return view('home');
     }]);
 
     /**
@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //render files
+    //Renderiza la vista de archivos
     Route::post('renderfiles', ['as' => 'renderfiles', 'uses' => 'SalaController@renderfile']);
 
     //Send chat message
@@ -58,6 +59,59 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('modificar-perfil', ['as' => 'modificar-perfil', 'uses' => 'UsuarioController@ShowModify']);
+
+    Route::post('edit-perfil', ['as' => 'edit-perfil', 'uses' => 'UsuarioController@edit']);
+
+    Route::post('change-pass', ['as' => 'change-pass', 'uses' => 'UsuarioController@changePass']);
+
+
+
+    /**
+     * Clases
+     *
+     */
+
+    Route::get('clases', ['as' => 'clases', 'uses' => 'ClasesController@show']);
+    Route::post('create-clase', ['as' => 'create-clase', 'uses' => 'ClasesController@create']);
+    Route::post('get-clases', ['as' => 'get-clases', 'uses' => 'ClasesController@getClases']);
+    Route::get('MsgClass-{receptor}', ['as' => 'MsgClass', 'uses' => 'ClasesController@sendMessage']);
+    Route::post('SendMessage', ['as' => 'SendMessage', 'uses' => 'PrivateMessageController@SendMessage']);
+
+
+
+    /**
+     * Deportes
+     */
+
+    Route::get('deportes', ['as' => 'deportes', 'uses' => 'DeportesController@show']);
+
+    /**
+     * Momentos
+     */
+
+    Route::get('momentos', ['as' => 'momentos', 'uses' => 'MomentosController@show']);
+
+
+    /**
+     * Proyectos
+     */
+
+    Route::get('proyectos', ['as' => 'proyectos', 'uses' => 'ProyectosController@show']);
+
+    /**
+     * Email
+     */
+
+    Route::get('mailbox', ['as' => 'mailbox', 'uses' => 'PrivateMessageController@show']);
+
+    /**
+     * Contactos
+     */
+
+    Route::get('contactos', ['as' => 'contactos', 'uses' => 'ContactosController@Index']);
+    Route::post('buscar-contactos', ['as' => 'buscar-contactos', 'uses' => 'ContactosController@Search']);
+    Route::post('follow', ['as' => 'follow', 'uses' => 'ContactosController@Follow']);
+
 
 });
 
@@ -130,6 +184,7 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout'])
 //confirmar registro
 
 Route::get('confirmar-registro/{user}/{token}', ['as' => 'confirmar-registro', 'uses' => 'UsuarioController@confirm']);
+
 
 
 
