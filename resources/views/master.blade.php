@@ -3,8 +3,9 @@
 
 <head>
 
+
+    <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Istudy</title>
 
     <link href="{{ URL::asset('front/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -33,7 +34,7 @@
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="{{URL::route('modificar-perfil')}}">Perfil</a></li>
                             <li><a href="{{URL::route('contactos')}}">Contactos</a></li>
-                            <li><a href="{{ URL::route('mailbox')}}">Mensajes privados</a></li>
+                            <li><a href="{{ URL::route('mailbox',["type" => "entry"])}}">Mensajes privados</a></li>
                             <li class="divider"></li>
                             <li><a href="{{URL::route('logout')}}">Cerrar sesion</a></li>
                         </ul>
@@ -65,7 +66,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academias <small style="color: red; font-size: 9px"> Proximamente</small></span></a>
+                    <a href="{{ URL::route('academias')}}"><i class="fa fa-book"></i> <span class="nav-label">Academias <small style="color: red; font-size: 9px"> Proximamente</small></span></a>
                 </li>
 
                 <li>

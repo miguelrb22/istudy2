@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use App\Models\MensajePrivado;
 
 class ClasesController extends Controller
 {
@@ -40,7 +41,13 @@ class ClasesController extends Controller
 
             $clases = ClasesParticulare::all();
 
-        } else {
+        }
+
+        else if($request->input("tipo") == 99){
+
+            $clases = ClasesParticulare::where("usuario_id", Auth::user()->id)->get();
+
+        }else {
 
             $clases = ClasesParticulare::where("rama_id", $request->input("tipo"))->get();
         }
@@ -51,10 +58,11 @@ class ClasesController extends Controller
 
     public function sendMessage($receptor)
     {
+        $unread = MensajePrivado::where("receptor", Auth::user()->id)->where("half_deleted_receptor",false)->where("read", false)->count();
 
         $userClases = User::find($receptor);
         $tipo = 2; //clases
-        return view("compomail", compact("userClases","tipo"));
+        return view("compomail", compact("userClases","tipo","unread"));
     }
 
     public function SendMessageClases(Request $request)

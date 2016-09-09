@@ -25,6 +25,10 @@
 
             <select class="form-control" name="a_mostrar" id="deportes_Select">
                 <option value="0">Mostrando todos</option>
+                @foreach($deportes as $deporte)
+
+                    <option value="{{$deporte->id}}">{{$deporte->nombre}}</option>
+                @endforeach
             </select>
 
         </div>
@@ -40,7 +44,7 @@
             <div class="panel-body" style="height: 120px">
                 <p>Se buscan amantes de este deporte para jugar el viernes a las 6 ¿ alquien se apunta?</p>
             </div>
-            <div class="panel-footer"> Se buscan 3 personas <button class="pull-right btn btn-danger btn-xs">Participar</button></div>
+            <div class="panel-footer"> Se buscan 3 personas <a href="{{URL::route("deporte",["id"=>1])}}"><button class="pull-right btn btn-danger btn-xs">Participar</button></a></div>
 
         </div>
     </div>
@@ -53,7 +57,7 @@
             <div class="panel-body" style="height: 120px">
                 <p>Haber si organizamos dos equipos y jugamos un partidillo de futbol</p>
             </div>
-            <div class="panel-footer"> Se buscan 22 personas <button class="pull-right btn btn-danger btn-xs">Participar</button></div>
+            <div class="panel-footer"> Se buscan 22 personas<a href="{{URL::route("deporte",["id"=>1])}}"> <button class="pull-right btn btn-danger btn-xs">Participar</button></a></div>
 
         </div>
     </div>
@@ -93,7 +97,11 @@
 
                             <label style="float: left" for="carrera">Deporte</label>
 
-                            <select class="form-control m-b" name="asignatura_id" id="asignatura">
+                            <select class="form-control m-b" name="deporte_id">
+                                @foreach($deportes as $deporte)
+
+                                    <option value="{{$deporte->id}}">{{$deporte->nombre}}</option>
+                                    @endforeach
 
                             </select>
                         </div>

@@ -65,6 +65,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'banners' => [
+            'driver' => 'local',
+            'root' => public_path('images/banners'),
+            'visibility' => 'public',
+        ],
+
 
         's3' => [
             'driver' => 's3',

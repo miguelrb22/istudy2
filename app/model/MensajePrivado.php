@@ -9,7 +9,7 @@ class MensajePrivado extends Model {
      */
 
     protected $table = 'mensaje_privado';
-    protected $fillable = ['id', 'emisor', 'destinatario', 'cuerpo','subject', 'tipo'];
+    protected $fillable = ['id', 'emisor', 'receptor', 'cuerpo','subject', 'tipo','read','deleted','half_deleted_emisor','half_deleted_receptor','full_deleted_emisor','full_deleted_receptor'];
 
 
 }

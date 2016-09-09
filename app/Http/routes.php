@@ -84,12 +84,31 @@ Route::group(['middleware' => 'auth'], function () {
      */
 
     Route::get('deportes', ['as' => 'deportes', 'uses' => 'DeportesController@show']);
+    Route::get('deporte-{id}', ['as' => 'deporte', 'uses' => 'DeportesController@showRoom']);
+
+
 
     /**
      * Momentos
      */
 
     Route::get('momentos', ['as' => 'momentos', 'uses' => 'MomentosController@show']);
+    Route::post('changebanner', ['as' => 'changebanner', 'uses' => 'MomentosController@ChangeBanner']);
+    Route::post('changesobremi', ['as' => 'changesobremi', 'uses' => 'MomentosController@ChangeSobreMi']);
+    Route::post('newmoment', ['as' => 'newmoment', 'uses' => 'MomentosController@NewMoment']);
+    Route::post('moremoments', ['as' => 'moremoments', 'uses' => 'MomentosController@moreMoments']);
+
+
+    Route::get('momentosUser-{id}', ['as' => 'momentosUser', 'uses' => 'MomentosController@showUser']);
+    Route::post('moremomentsUser', ['as' => 'moremomentsUser', 'uses' => 'MomentosController@moreMomentsUser']);
+
+    Route::get('Direct-{receptor}', ['as' => 'Direct', 'uses' => 'MomentosController@sendMessage']);
+
+
+
+
+
+
 
 
     /**
@@ -102,7 +121,21 @@ Route::group(['middleware' => 'auth'], function () {
      * Email
      */
 
-    Route::get('mailbox', ['as' => 'mailbox', 'uses' => 'PrivateMessageController@show']);
+    Route::get('mailbox-{type}', ['as' => 'mailbox', 'uses' => 'PrivateMessageController@show']);
+    Route::post('getPrivateMessagesSended', ['as' => 'getPrivateMessagesSended', 'uses' => 'PrivateMessageController@getPrivateMessagesSended']);
+
+    Route::get('viewmail-{id}', ['as' => 'viewmail', 'uses' => 'PrivateMessageController@viewmail']);
+
+    Route::get('composemail', ['as' => 'composemail', 'uses' => 'PrivateMessageController@compose']);
+
+    Route::post('deletemailtemp', ['as' => 'deletemailtemp', 'uses' => 'PrivateMessageController@deleteTemp']);
+    Route::post('reliveMail', ['as' => 'reliveMail', 'uses' => 'PrivateMessageController@reliveMail']);
+    Route::post('deletemailtempOut', ['as' => 'deletemailtempOut', 'uses' => 'PrivateMessageController@deleteTempOut']);
+    Route::post('reliveMailOut', ['as' => 'reliveMailOut', 'uses' => 'PrivateMessageController@reliveMailOut']);
+    Route::post('fullDelete', ['as' => 'fullDelete', 'uses' => 'PrivateMessageController@fullDelete']);
+    Route::post('fullDeleteOut', ['as' => 'fullDeleteOut', 'uses' => 'PrivateMessageController@fullDeleteOut']);
+
+
 
     /**
      * Contactos
@@ -111,6 +144,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contactos', ['as' => 'contactos', 'uses' => 'ContactosController@Index']);
     Route::post('buscar-contactos', ['as' => 'buscar-contactos', 'uses' => 'ContactosController@Search']);
     Route::post('follow', ['as' => 'follow', 'uses' => 'ContactosController@Follow']);
+
+    /**
+     * Academias
+     */
+
+    Route::get('academias', ['as' => 'academias', 'uses' => 'AcademiasController@Index']);
 
 
 });
@@ -147,7 +186,6 @@ Route::get('insert-carreras', ['as' => 'insert-carreras', function () {
         //https://dev.datos.ua.es/uapi/MtusbVQaX2JvJdxkFvvA/datasets/7/data
         //https://dev.datos.ua.es/uapi/MtusbVQaX2JvJdxkFvvA/datasets/1004/data
     }
-    dd($json);
 
 }]);
 
@@ -187,4 +225,25 @@ Route::get('confirmar-registro/{user}/{token}', ['as' => 'confirmar-registro', '
 
 
 
+Route::get('/fakeusers',function(){
+
+    $faker = Faker\Factory::create('es_ES');
+
+    $limit = 100000;
+
+        for ($i = 0; $i < $limit; $i++) {
+
+            $user = new \Illuminate\Foundation\Auth\User();
+            $user->nombre = $faker->name();
+            $user->email = $faker->freeEmail();
+            $user->password = bcrypt(str_random(10));
+            $user->seguidores = $faker->numberBetween(0, 200);
+            $user->gente = $faker->numberBetween(0, 1);
+            $user->sobremi = $faker->realText(200);
+
+            $user->save();
+
+        }
+    echo "echo";
+});
 

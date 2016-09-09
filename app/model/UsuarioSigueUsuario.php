@@ -9,7 +9,7 @@ class UsuarioSigueUsuario extends Model {
      */
 
     protected $table = 'usuario_sigue_usuario';
-    protected $fillable = ['usuario_id', 'usuario_id2', 'mutuo'];
+    protected $fillable = ['usuario_id', 'usuario_id2', 'confirmed'];
 
 
 

@@ -3,6 +3,8 @@
 
 @section("css")
 
+    <link href="{{ URL::asset('front/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
+
 
 @endsection
 @section('contenido')
@@ -10,29 +12,7 @@
     <div class="row">
 
         <div class="col-lg-2">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content mailbox-content">
-                    <div class="file-manager">
-                        <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">Nuevo</a>
-                        <div class="space-25"></div>
-                        <h5>Folders</h5>
-                        <ul class="folder-list m-b-md" style="padding: 0">
-                            <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">16</span> </a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Enviados</a></li>
-                            <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Borrados</a></li>
-                        </ul>
-                        <h5>Categories</h5>
-                        <ul class="category-list" style="padding: 0">
-                            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
-                            <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
+            @include("sections/inbox_left")
         </div>
         <div class="col-lg-10 animated fadeInRight">
             <div class="mail-box-header">
@@ -48,58 +28,20 @@
                     </div>
                 </form>
                 <h2>
-                   Entrada (2)
+                Mensajes privados
                 </h2>
                 <div class="mail-tools tooltip-demo m-t-md">
                     <div class="btn-group pull-right">
-                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
-                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+                        <p class="demo2"></p>
 
                     </div>
-                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Inicio </button>
 
                 </div>
             </div>
             <div class="mail-box">
 
-                <table class="table table-hover table-mail">
+                <table class="table table-hover table-mail" cellspacing="0" cellpadding="0">
                     <tbody class="messageslist">
-                    <tr class="unread">
-                        <td class="check-mail">
-                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Anna Smith</a></td>
-                        <td class="mail-subject"><a href="mail_detail.html">Lorem ipsum dolor noretek imit set.</a></td>
-                        <td class=""><i class="fa fa-paperclip"></i></td>
-                        <td class="text-right mail-date">6.10 AM</td>
-                    </tr>
-                    <tr class="unread">
-                        <td class="check-mail">
-                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Jack Nowak</a></td>
-                        <td class="mail-subject"><a href="mail_detail.html">Aldus PageMaker including versions of Lorem Ipsum.</a></td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">8.22 PM</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
-                        <td class="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">Jan 16</td>
-                    </tr>
-                    <tr class="read">
-                        <td class="check-mail">
-                            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
-                        </td>
-                        <td class="mail-ontact"><a href="mail_detail.html">Mailchip</a></td>
-                        <td class="mail-subject"><a href="mail_detail.html">There are many variations of passages of Lorem Ipsum.</a></td>
-                        <td class=""></td>
-                        <td class="text-right mail-date">Mar 22</td>
-                    </tr>
 
                     </tbody>
                 </table>
@@ -114,5 +56,247 @@
 
 @section("jquery")
 
+
+    <script src="{{ URL::asset('front/js/plugins/bootpag/bootpag.min.js') }}"></script>
+    <script src="{{ URL::asset('front/js/plugins/toastr/toastr.min.js') }}"></script>
+
+
+    <script type="text/javascript">
+
+
+
+        var type = "{{$type}}";
+
+        function  getMessages(){
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('getPrivateMessagesSended')}}",
+                data: {_token: "{{ csrf_token()}}", page: 1, type: type},
+                success: function (data) {
+
+                    $(".messageslist").html(data);
+
+                }
+            });
+        }
+
+        var total = "{{$total}}";
+        var unread= "{{$unread}}";
+        var pages = total/10;
+        var resto = total%10;
+
+        if(resto >= 0) pages= Math.floor(pages)+1;
+
+
+        $(".total-inbox-indicator").text(unread);
+
+
+
+        $('.demo2').bootpag({
+            total: pages,
+            page: 1,
+            maxVisible: 3
+        }).on('page', function(event, num){
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('getPrivateMessagesSended')}}",
+                data: {_token: "{{ csrf_token()}}", page: num, type: type},
+                success: function (data) {
+
+                    $(".messageslist").html(data);
+
+                }
+            });
+        });
+
+        getMessages();
+
+        function  deleteMail(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.error("Has eliminado el mensaje, aunque aun se puede recuperar en la sección de borrados", "Borrado");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('deletemailtemp')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+
+        function  reliveMail(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.success("Mensaje recuperado correctamente", "Ha vuelto!");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('reliveMail')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+
+        function  deleteMailOut(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.error("Has eliminado el mensaje, aunque aun se puede recuperar en la sección de borrados", "Borrado");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('deletemailtempOut')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+
+        function  reliveMailOut(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.success("Mensaje recuperado correctamente", "Ha vuelto!");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('reliveMailOut')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+
+        function  fullDelete(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.error("Mensaje eliminado permanentemente", "Bye bye!");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('fullDelete')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+
+        function  fullDeleteOut(id){
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": false,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.error("Mensaje eliminado permanentemente", "Bye bye!");
+
+            $.ajax({
+                type: "POST",
+                url: "{{URL::route('fullDeleteOut')}}",
+                data: {_token: "{{ csrf_token()}}", id: id},
+                success: function (data) {
+
+                    $("#mail"+id).remove();
+                }
+            });
+        }
+    </script>
 
 @endsection

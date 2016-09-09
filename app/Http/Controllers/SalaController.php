@@ -98,7 +98,9 @@ class SalaController extends Controller
         $room = $sala->room_id;
         $codigo = $sala->pass;
 
-        return view('sala',compact("id","archivos",'storage','room','codigo'));
+        $participantes = UsuarioSalaView::where("sala_id",$id)->get();
+
+        return view('sala',compact("id","archivos",'storage','room','codigo','part'));
     }
 
     /**
@@ -216,8 +218,8 @@ class SalaController extends Controller
             "mensaje" => $request->input("mensaje-nuevo"),
             "date" => date("d-m-Y H:i:s"),
             "nombre" => Auth::User()->nombre,
-            "likes" => 0,
-            "avatar" => Auth::User()->img_url
+            "avatar" => Auth::User()->img_url,
+            "id" => Auth::user()->id
         );
 
         $sala = Sala::find($request->input("sala"));
@@ -277,8 +279,7 @@ class SalaController extends Controller
             "url" => Auth::User()->img_url
         );
 
-        $sala = Sala::find($request->input("sala"));
-        $firebase->push("rooms/".$sala->room_id,$data);
+        $firebase->push("rooms/".$request->input("room"),$data);
     }
 
 

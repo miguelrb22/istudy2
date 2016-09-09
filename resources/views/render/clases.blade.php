@@ -43,6 +43,9 @@
                         {{$clase->precio}} €/hora
                         @endif
 
+                    @if($clase->usuario_id == \Illuminate\Support\Facades\Auth::user()->id)
+                            <button class="pull-right btn btn-warning btn-xs fa fa-trash"></button>
+                        @endif
                     <a href="{{URL::route('MsgClass', ['receptor' => $clase->usuario_id])}}"><button class="pull-right btn btn-danger btn-xs">Enviar mensaje</button></a></div>
 
             </div>        </div>

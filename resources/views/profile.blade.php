@@ -31,7 +31,7 @@
                                     <div class="form-group"><label>Puedes elegir un nombre mas molón</label>
                                         <input type="text" placeholder="New name" class="form-control" name="nombre" pattern=".{3,}"   required value="{{\Illuminate\Support\Facades\Auth::user()->nombre}}">
                                     </div>
-                                    <div class="form-group"><label>Modulo gente</label> <span
+                                    <div class="form-group"><label>Aparecer en los resultados de busqueda</label> <span
                                                 class="fa fa-question fa-lg"></span>
 
                                         <div class="switch">
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <span> Salas</span>
-                            <h2 class="font-bold">26'C</h2>
+                            <h2 class="font-bold">2</h2>
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <span> Momentos </span>
-                            <h2 class="font-bold">26'C</h2>
+                            <h2 class="font-bold">26</h2>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <span> Clases</span>
-                            <h2 class="font-bold">26'C</h2>
+                            <h2 class="font-bold">2</h2>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <span>Proyectos</span>
-                            <h2 class="font-bold">26'C</h2>
+                            <h2 class="font-bold">0</h2>
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <span> Seguidores</span>
-                            <h2 class="font-bold">26'C</h2>
+                            <h2 class="font-bold">269</h2>
                         </div>
                     </div>
                 </div>

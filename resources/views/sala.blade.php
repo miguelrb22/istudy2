@@ -370,7 +370,7 @@
                     $.ajax({
                         type: "POST",
                         url: "{{URL::route('sendchat')}}",
-                        data: {sala: "{{$id}}", user: "{{Auth::User()->id}}", msg: mensaje, date: getNow2() },
+                        data: {room: "{{$room}}", user: "{{Auth::User()->id}}", msg: mensaje, date: getNow2() },
                         success: function (data) {
 
                         },

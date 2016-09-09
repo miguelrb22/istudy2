@@ -46,9 +46,9 @@
                     <div class="widget-text-box ">
                         <div class="text-right">
                             <a class="btn btn-xs btn-danger" onclick="eliminar_sala({{$sala->sala_id}})"><i
-                                        class="fa fa-thumbs-up"></i> Abandonar </a>
+                                        class="fa fa-trash"></i> Abandonar </a>
                             <a href="{{ route('sala',[$sala->sala_id])}}" class="btn  btn-xs btn-primary"><i
-                                        class="fa fa-heart"></i> Acceder </a>
+                                        class="fa fa-arrow-up"></i> Acceder </a>
                         </div>
                     </div>
                 </div>

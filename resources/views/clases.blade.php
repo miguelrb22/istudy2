@@ -27,6 +27,8 @@
                     <option value="{{$asignatura->id}}">{{$asignatura->nombre}}</option>
 
                 @endforeach
+                <option value="99">Publicadas por mi</option>
+
             </select>
 
         </div>
